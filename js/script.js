@@ -72,7 +72,7 @@ const appendPageLinks = (pages) => {
 
 
     });
-    showPage(studentItems, 10);
+    
   }
 }
 
