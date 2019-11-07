@@ -17,21 +17,26 @@ FSJS project 2 - List Filter and Pagination
    scoped to that function.
 ***/
 const studentItems = document.getElementsByClassName('student-item');
-const endingIndex = 10;
-const beginningIndex = 0;
 
 const pages = () => {
-  const pageNumbers = Math.ceil(studentItems.length/endingIndex) ;
+  const pageNumbers = Math.ceil(studentItems.length/10) ;
   return pageNumbers;
 
 
 }
 
-const showPage = (list) => {
+const showPage = (list,page) => {
+  let itemsPerPage = 10;
+
+
+  let startIndex = (page * itemsPerPage) - itemsPerPage;
+  let endIndex = page * itemsPerPage;
+
+
   for(let i = 0; i < list.length; i++){
-    if(i < endingIndex && i > beginningIndex){
+    if(i <= endIndex && i >= startIndex){
       list[i].style.display = "block";
-    }else {
+    } else {
       list[i].style.display = "none"
     }
   }
@@ -47,8 +52,7 @@ const appendPageLinks = (pages) => {
   const newUL = document.createElement('ul');
   newDiv.appendChild(newUL);
 
-
-  for(let i = 0; i <= pages; i++){
+  for(let i = 1; i <= pages; i++){
     const newLI = document.createElement('li');
     const newLink = document.createElement('a')
 
@@ -56,11 +60,19 @@ const appendPageLinks = (pages) => {
     newLink.href = '#';
     newLink.textContent = i;
     newLI.appendChild(newLink);
+
+
+
     newLink.addEventListener('click', () => {
-      showPage(studentItems);
+      showPage(studentItems, i);
+
+      event.target.className = 'active';
+      newLink.className = '';
+
 
 
     });
+    showPage(studentItems, 10);
   }
 }
 
