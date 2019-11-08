@@ -42,7 +42,7 @@ const showPage = (list,page) => {
   }
 }
 
-showPage(studentItems);
+showPage(studentItems, 1);
 
 const appendPageLinks = (pages) => {
   const newDiv = document.createElement('div');
@@ -65,14 +65,20 @@ const appendPageLinks = (pages) => {
 
     newLink.addEventListener('click', () => {
       showPage(studentItems, i);
+      const aLinks = document.querySelectorAll('a');
+      for (let i = 0; i < aLinks.length; i++){
+        if(aLinks[i].innerHTML === event.target.innerHTML){
+          event.target.className = 'active';
+        } else {
+          event.target.className = '';
+        }
+      }
 
-      event.target.className = 'active';
-      newLink.className = '';
 
 
 
     });
-    
+
   }
 }
 
